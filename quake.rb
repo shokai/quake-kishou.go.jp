@@ -5,26 +5,28 @@ require 'date'
 
 class Quake
   def self.get(date=Date.today-1)
-    begin
-      url = "http://www.seisvol.kishou.go.jp/eq/daily_map/japan/#{date.to_s.gsub('-','')}_list.shtml"
-    rescue => e
-      STDERR.puts "HTTP-GET Error : #{url}"
-      STDERR.puts e
-    end
-    
+    url = "http://www.seisvol.kishou.go.jp/eq/daily_map/japan/#{date.to_s.gsub('-','')}_list.shtml"
     page = open(url).read.toutf8
     page.scan(/<pre>(.+)<\/pre>/im).first.first.split(/[\r\n]/).map{|i|
       i.strip
     }.delete_if{|i|!(i =~ /^\d+/)}.map{|i|
-      tmp = i.split(/\s+/)
+      tmp = i.split(/[^\d\.]+/)
       {
-        :place => tmp.pop,
-        :m => tmp.pop.to_f
+        :place => i.split(/\s+/).last,
+        :time => Time.mktime(tmp.shift.to_i, tmp.shift.to_i, tmp.shift.to_i, tmp.shift.to_i, tmp.shift.to_i, tmp.shift.to_i),
+        :lat => tmp.shift.to_i+tmp.shift.to_f/60,
+        :lon => tmp.shift.to_i+tmp.shift.to_f/60,
+        :depth => tmp.shift.to_i,
+        :magnitude => tmp.shift.to_f
       }
     }
   end
 end
 
 if $0 == __FILE__
-  p Quake.get
+  ##  ruby -Ku quake.rb
+  ##  ruby -Ku quake.rb 20120102
+
+  date = ARGV.empty? ? Date.today-1 : Date.parse(ARGV.shift)
+  p Quake.get(date)
 end
