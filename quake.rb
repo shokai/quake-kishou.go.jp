@@ -5,7 +5,11 @@ require 'date'
 
 class Quake
   def self.get(date=Date.today-1)
-    url = "http://www.seisvol.kishou.go.jp/eq/daily_map/japan/#{date.to_s.gsub('-','')}_list.shtml"
+    if date.class != Date
+      raise 'Date format error'
+    else
+      url = "http://www.seisvol.kishou.go.jp/eq/daily_map/japan/#{date.to_s.gsub('-','')}_list.shtml"
+    end
     page = open(url).read.toutf8
     page.scan(/<pre>(.+)<\/pre>/im).first.first.split(/[\r\n]/).map{|i|
       i.strip
@@ -26,7 +30,7 @@ end
 if $0 == __FILE__
   ##  ruby -Ku quake.rb
   ##  ruby -Ku quake.rb 20120102
-
+  
   date = ARGV.empty? ? Date.today-1 : Date.parse(ARGV.shift)
   p Quake.get(date)
 end
