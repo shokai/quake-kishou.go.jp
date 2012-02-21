@@ -1,0 +1,4 @@
+*.lock
+*.tmp
+*~
+config.yml

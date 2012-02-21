@@ -18,8 +18,10 @@ class Quake
       {
         :place => i.split(/\s+/).last,
         :time => Time.mktime(tmp.shift.to_i, tmp.shift.to_i, tmp.shift.to_i, tmp.shift.to_i, tmp.shift.to_i, tmp.shift.to_i),
-        :lat => tmp.shift.to_i+tmp.shift.to_f/60,
-        :lon => tmp.shift.to_i+tmp.shift.to_f/60,
+        :point => {
+          :lat => tmp.shift.to_i+tmp.shift.to_f/60,
+          :lon => tmp.shift.to_i+tmp.shift.to_f/60
+        },
         :depth => tmp.shift.to_i,
         :magnitude => tmp.shift.to_f
       }
