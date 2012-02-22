@@ -23,6 +23,7 @@ Store
 -----
 
     % ruby -Ku bin/store.rb
+    % ruby -Ku bin/store.rb 20120101
     % ruby -rdate -e 'd=Date.parse("2012-01-01");loop do puts d; d+=1; break if d >= Date.today end' | xargs -n1 ruby -Ku bin/store.rb
 
 
