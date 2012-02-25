@@ -6,4 +6,8 @@ class Quake
   field :point, :type => Hash
   field :depth, :type => Float
   field :magnitude, :type => Float
+
+  def time
+    self[:time].getlocal
+  end
 end
