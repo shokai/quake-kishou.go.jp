@@ -12,6 +12,7 @@ class Quake
   end
 
   def self.find_by_date(date)
+    date = Date.parse date unless date.class == Date
     where(:time.gt => date, :time.lt => date+1)
   end
 
