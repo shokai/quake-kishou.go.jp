@@ -22,7 +22,6 @@ end
 
 [:helpers, :models].each do |dir|
   Dir.glob(File.dirname(__FILE__)+"/#{dir}/*.rb").each do |rb|
-    puts "load #{rb}"
     require rb
   end
 end
