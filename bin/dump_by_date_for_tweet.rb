@@ -12,7 +12,7 @@ Quake.find_by_date(date).asc(:time).map{|q|
   places[q.place][:lat] = q.point['lat']
 }
 
-puts "#{date.year}年#{date.month}月#{date.day}日の震度3以上の地震 " + places.keys.map{|name|
+puts "#{date.year}年#{date.month}月#{date.day}日のマグニチュード3以上の地震 " + places.keys.map{|name|
   place = places[name]
   {
     :count => place[:count],
