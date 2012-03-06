@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-## dump quake data specified date
+## dump monthly quake data
 
 require File.dirname(__FILE__)+'/../bootstrap'
 
