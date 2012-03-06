@@ -16,6 +16,11 @@ class Quake
     where(:time.gt => date, :time.lt => date+1)
   end
 
+  def self.find_by_month(year, month)
+    date = Date.parse("#{year}-#{month}-01")
+    where(:time.gt => date, :time.lt => date.next_month)
+  end
+
   def to_json
     {
       :place => place,
