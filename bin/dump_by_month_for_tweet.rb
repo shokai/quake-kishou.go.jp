@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 ## dump monthly quake data
 
 require File.dirname(__FILE__)+'/../bootstrap'
@@ -12,7 +13,7 @@ end
 if !ARGV.empty? and ARGV.first =~ /^\d{6}/
   year, month = ARGV.shift.scan(/^(\d{4})(\d{2})/)[0].map{|i| i.to_i }
 else
-  d = Date.today
+  d = Date.today.prev_month
   year, month = d.year, d.month
 end
 
